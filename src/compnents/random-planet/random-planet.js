@@ -6,36 +6,45 @@ import Spinner from '../spinner';
 import './random-planet.css';
 
 export default class RandomPlanet extends Component {
-
-    swapiService = new SwapiService();
-
-    state = {
-      planet: {},
-      loading: true
-    }
-
-    constructor () {
-      super();
-      this.updatePlanet();
-    }
-
-    onPlanetLoaded = (planet) => {
-      this.setState({
-        planet,
-        loading: false
-      })
-    }
-
-    onError = (err) => {
       
-    }
+  swapiService = new SwapiService();
 
-    updatePlanet () {
-      const id = Math.floor(Math.random() * 25) + 2;
-      this.swapiService.getPlanet(id)
-        .then(this.onPlanetLoaded)
-        .catch (this.onError);
-    }
+  state = {
+    planet: {},
+    loading: true
+  };
+
+  componentDidMount() {
+    this.updatePlanet();
+    this.interval = setInterval(this.updatePlanet, 10000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  onPlanetLoaded = (planet) => {
+    this.setState({
+      planet,
+      loading: false,
+      error: false
+    });
+  };
+
+  onError = (err) => {
+    this.setState({
+      error: true,
+      loading: false
+    });
+  };
+
+  updatePlanet = () => {
+    const id = Math.floor(Math.random()*17) + 2;
+    this.swapiService
+      .getPlanet(id)
+      .then(this.onPlanetLoaded)
+      .catch(this.onError);
+  };
 
     render() {
 

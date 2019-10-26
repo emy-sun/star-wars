@@ -12,7 +12,7 @@ export default class ItemList extends Component {
         peopleList: null
     }
 
-    componentDidMount() {
+    componentDidMount() { 
         this.swapiService
             .getAllPeople()
             .then((peopleList) => {
@@ -27,8 +27,9 @@ export default class ItemList extends Component {
             return (
             <li className='list-group-item' 
                 key = {id}
-                onclick={() => this.props.onItemSelected(id)}> 
-                {name } </li>
+                onClick={() => this.props.onItemSelected(id)}> 
+                {name }
+             </li>
             )
         })
     }

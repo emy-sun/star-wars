@@ -1,3 +1,3 @@
-import PlanetDetails from './planet-details';
+// import PlanetDetails from './planet-details';
 
-export default PlanetDetails;
+// export default PlanetDetails;
